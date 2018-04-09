@@ -8,6 +8,10 @@ export const FAILURE_CREATE_USER = 'FAILURE_CREATE_USER'
 
 export const REQUEST_USER = 'REQUEST_USER'
 
+export const DELETE_USER = 'DELETE_USER'
+export const SUCCESS_DELETE_USER = 'SUCCESS_DELETE_USER'
+export const FAILURE_DELETE_USER = 'FAILURE_DELETE_USER'
+
 export function requestAllUser(data) {
   return {
     type: REQUEST_ALL_USER
@@ -54,3 +58,25 @@ export function requestUser(userId) {
     userId
   }
 }
+
+export function deleteUser(userId) {
+  return {
+    type: DELETE_USER,
+    userId
+  }
+}
+
+export function successDeleteUser(data) {
+  return {
+    type: SUCCESS_DELETE_USER,
+    data
+  }
+}
+
+export function failureDeleteUser(data) {
+  return {
+    type: FAILURE_DELETE_USER,
+    data
+  }
+}
+

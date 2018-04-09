@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { connect } from 'react-redux'
-import { requestUser } from '../actions'
+import { requestUser, deleteUser } from '../actions'
 import UserDetail from '../components/UserDetail'
 
 class UserDetailContainer extends Component {
@@ -15,10 +15,10 @@ class UserDetailContainer extends Component {
   }
 
   render() {
-    const { data } = this.props
+    const { data, deleteUser } = this.props
     return (
       <div>
-        <UserDetail data={data} />
+        <UserDetail data={data} handleDeleteUser={deleteUser} />
       </div>
     )
   }
@@ -43,4 +43,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { requestUser })(UserDetailContainer)
+export default connect(mapStateToProps, { requestUser, deleteUser })(UserDetailContainer)

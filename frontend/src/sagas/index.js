@@ -1,7 +1,8 @@
 import { take, put, call, fork } from 'redux-saga/effects'
-import { REQUEST_ALL_USER, receiveData, failureData,
+import { REQUEST_ALL_USER, receiveData, failureData, requestAllUser,
          CREATE_USER, successCreateUser, failureCreateUser,
-         REQUEST_USER
+         REQUEST_USER,
+         DELETE_USER, successDeleteUser, failureDeleteUser,
        } from '../actions'
 import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
@@ -83,8 +84,38 @@ export function fetchUser(id) {
     })
 }
 
+export function* handleDeleteUser() {
+  while(true) {
+    const action = yield take(DELETE_USER)
+    console.log(action.userId)
+    const data = yield call(deleteUser, action.userId)
+
+    if(data) {
+      yield put(successDeleteUser(data))
+      yield put(requestAllUser())
+    } else {
+      yield put(failureDeleteUser(data))
+    }
+  }
+}
+
+export function deleteUser(id) {
+  const url = `http://localhost:3001/user/${id}`
+
+  return fetch(url, {
+    cache: 'no-chahe',
+    credentials: 'same-origin',
+    method: 'DELETE',
+    mode: 'cors',
+    redirect: 'follow',
+    referrer: 'no-referrer',
+  })
+  .then(res => res.json())
+}
+
 export default function* root() {
   yield fork(handleRequestUsers)
   yield fork(handleCreateUser)
   yield fork(handleRequestUser)
+  yield fork(handleDeleteUser)
 }

@@ -1,8 +1,15 @@
 import React from 'react'
 import Header from './Header'
-import { Panel } from 'react-bootstrap'
+import { Panel, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
-const UserDetail = ({ data }) => (
+const styles = {
+  button: {
+    marginLeft: 5
+  }
+}
+
+const UserDetail = ({ data, handleDeleteUser }) => (
   <div>
     <Panel bsStyle='primary'>
       <Panel.Heading>
@@ -13,6 +20,17 @@ const UserDetail = ({ data }) => (
         Role : {data[0].role}
       </Panel.Body>
     </Panel>
+    <Button bsStyle='primary'>
+      Edit
+    </Button>
+    <Link to={'/users'}>
+      <Button bsStyle='danger' onClick={(e) => handleDeleteUser(data[0].id, e)} style={styles.button}>
+        Delete
+      </Button>
+    </Link>
+    <Button bsStyle='default' style={styles.button}>
+      <Link to={'/users'}>Top</Link>
+    </Button>
  </div>
 )
 

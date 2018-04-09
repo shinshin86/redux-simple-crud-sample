@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
@@ -8,7 +9,7 @@ const styles = {
   }
 }
 
-const UserData = ({ data }) => (
+const UserData = ({ data, handleDeleteUser }) => (
   <tr>
     <td>{data.id}</td>
     <td>{data.name}</td>
@@ -19,13 +20,17 @@ const UserData = ({ data }) => (
           Detail
         </Button>
       </Link>
-      <Link to={`/user/${data.id}`}>
-        <Button bsStyle='danger' style={styles.button}>
+      <Link to={`/users`}>
+        <Button bsStyle='danger' style={styles.button} onClick={(e) => handleDeleteUser(data.id, e)}>
           Delete
         </Button>
       </Link>
     </td>
   </tr>
 )
+
+UserData.PropTypes = {
+  handleDeleteUser: PropTypes.func.isRequired,
+}
 
 export default UserData

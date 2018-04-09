@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { connect } from 'react-redux'
-import { requestAllUser } from '../actions'
+import { requestAllUser, deleteUser } from '../actions'
 import UserList from '../components/UserList'
 
 class UserListContainer extends Component {
   constructor(props) {
     super(props)
-    this.props.dispatch(requestAllUser())
+    this.props.requestAllUser()
   }
 
   render() {
-    const { data } = this.props
+    const { data, deleteUser } = this.props
     return (
       <div>
-        <UserList data={data} />
+        <UserList data={data} deleteUser={deleteUser} />
       </div>
     )
   }
@@ -38,4 +38,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(UserListContainer)
+export default connect(mapStateToProps, { requestAllUser, deleteUser })(UserListContainer)
