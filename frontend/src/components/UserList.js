@@ -17,6 +17,7 @@ const UserList = ({ data }) => (
           <th>ID</th>
           <th>Name</th>
           <th>Role</th>
+          <th>Controller</th>
         </tr>
       </thead>
       <tbody>

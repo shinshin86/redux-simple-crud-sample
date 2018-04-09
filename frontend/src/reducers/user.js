@@ -1,5 +1,6 @@
 import { REQUEST_ALL_USER, RECEIVE_DATA, FAILURE_DATA,
-         CREATE_USER, SUCCESS_CREATE_USER, FAILURE_CREATE_USER
+         CREATE_USER, SUCCESS_CREATE_USER, FAILURE_CREATE_USER,
+         REQUEST_USER
        } from '../actions'
 
 const initial = {
@@ -43,6 +44,12 @@ export default function userManager(
       return {
         ...state,
         isProcessing: false
+      }
+    case REQUEST_USER:
+      return {
+        ...state,
+        isFetching: true,
+        userId: action.userId
       }
     default:
       return state

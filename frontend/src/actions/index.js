@@ -6,6 +6,8 @@ export const CREATE_USER = 'CREATE_USER'
 export const SUCCESS_CREATE_USER = 'SUCCESS_CREATE_USER'
 export const FAILURE_CREATE_USER = 'FAILURE_CREATE_USER'
 
+export const REQUEST_USER = 'REQUEST_USER'
+
 export function requestAllUser(data) {
   return {
     type: REQUEST_ALL_USER
@@ -43,5 +45,12 @@ export function failureCreateUser(data) {
   return {
     type: FAILURE_CREATE_USER,
     data
+  }
+}
+
+export function requestUser(userId) {
+  return {
+    type: REQUEST_USER,
+    userId
   }
 }

@@ -1,11 +1,11 @@
 import React from 'react'
 import Header from './Header'
-import UserList from '../containers/UserListContainer'
+import UserDetailContainer from '../containers/UserDetailContainer'
 
-const UserIndex = () => (
+const UserIndex = ({ match }) => (
   <div>
     <Header />
-    <UserList />
+    <UserDetailContainer userId={match.params.id} />
   </div>
 )
 

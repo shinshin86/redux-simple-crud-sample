@@ -1,6 +1,7 @@
 import { take, put, call, fork } from 'redux-saga/effects'
 import { REQUEST_ALL_USER, receiveData, failureData,
-         CREATE_USER, successCreateUser, failureCreateUser
+         CREATE_USER, successCreateUser, failureCreateUser,
+         REQUEST_USER
        } from '../actions'
 import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
@@ -59,7 +60,31 @@ export function* handleCreateUser() {
   }
 }
 
+export function* handleRequestUser() {
+  while(true) {
+    const action = yield take(REQUEST_USER)
+    const data = yield call(fetchUser, action.userId)
+
+    if(data) {
+      yield put(receiveData(data))
+    } else {
+      yield put(failureData())
+    }
+  }
+}
+
+export function fetchUser(id) {
+  const url = `http://localhost:3001/user/${id}`
+  return fetch(url)
+    .then(res => res.json())
+    .catch(err => {
+      console.error(`ERROR: ${err}`)
+      throw new Error('ERROR')
+    })
+}
+
 export default function* root() {
   yield fork(handleRequestUsers)
   yield fork(handleCreateUser)
+  yield fork(handleRequestUser)
 }
