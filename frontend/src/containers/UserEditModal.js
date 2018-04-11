@@ -6,6 +6,11 @@ import { Link } from 'react-router-dom'
 import { Button, FormGroup, FormControl, ControlLabel, Col  } from 'react-bootstrap'
 import { updateUser } from '../actions'
 
+const styles = {
+  button: {
+    marginLeft: 15
+  }
+}
 const submit = (values, dispatch) => {
   dispatch(updateUser(values))
 }
@@ -18,7 +23,6 @@ const renderTextField =
      placeholder,
      meta: {touched, error, warning}
    }) => {
-    console.log(input)
     const validationState = error ? 'error' : warning ? 'warning' : 'success';
     return (
       <FormGroup controlId={input.name} validationState={touched ? validationState : null}>
@@ -69,7 +73,6 @@ const renderDisabledTextField =
      placeholder,
      meta: {touched, error, warning}
    }) => {
-    console.log(input)
     const validationState = error ? 'error' : warning ? 'warning' : 'success';
     return (
       <FormGroup controlId={input.name} validationState={touched ? validationState : null}>
@@ -103,7 +106,7 @@ class UserEditModal extends Component {
   }
   
   render() {
-    const { handleSubmit, pristine, submitting, initialize, data, handleHide } = this.props;
+    const { handleSubmit, pristine, submitting, reset, initialize, data, handleHide } = this.props;
     return (
       <form onSubmit={handleSubmit(submit)}>
         <FormGroup controlId='userEditForm'>
@@ -132,10 +135,8 @@ class UserEditModal extends Component {
             />
           </div>
           <div>
-            <Button bsStyle='primary' type="submit" disabled={pristine || submitting} onClick={handleHide}>Submit</Button>
-            <Button bsStyle='default' type="button" disabled={pristine || submitting} onClick={handleHide}>
-              Close
-            </Button>
+            <Button bsStyle='primary' type="submit" disabled={pristine || submitting} onClick={handleHide} style={styles.button}>Submit</Button>
+            <Button bsStyle='danger' disabled={pristine || submitting} onClick={reset} style={styles.button}>Clear</Button>
           </div>
         </FormGroup>
       </form>

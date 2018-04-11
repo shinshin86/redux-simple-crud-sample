@@ -21,17 +21,12 @@ class UserEditContainer extends React.Component {
     const { data } = this.props
     return (
       <span className="modal-container">
-        <Button
-          bsStyle="primary"
-          onClick={() => this.setState({ show: true })}
-        >
-          Edit
-        </Button>
         <Modal
           show={this.state.show}
           onHide={this.handleHide}
           container={this}
           aria-labelledby="contained-modal-title"
+          bsSize="large"
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title">
@@ -41,7 +36,16 @@ class UserEditContainer extends React.Component {
           <Modal.Body>
             <UserEditModal data={data} handleHide={this.handleHide} />
           </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleHide}>Close</Button>
+          </Modal.Footer>
         </Modal>
+        <Button
+          bsStyle="primary"
+          onClick={() => this.setState({ show: true })}
+        >
+          Edit
+        </Button>
       </span>
     );
   }
