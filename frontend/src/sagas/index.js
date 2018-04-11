@@ -1,11 +1,11 @@
 import { take, put, call, fork } from 'redux-saga/effects'
 import { REQUEST_ALL_USER, receiveData, failureData, requestAllUser,
          CREATE_USER, successCreateUser, failureCreateUser,
+         UPDATE_USER, successUpdateUser, failureUpdateUser,
          REQUEST_USER,
          DELETE_USER, successDeleteUser, failureDeleteUser,
        } from '../actions'
 import fetch from 'isomorphic-fetch'
-import { push } from 'react-router-redux'
 
 export function* handleRequestUsers() {
   while(true) {
@@ -48,6 +48,24 @@ export function createNewUser(data) {
   .then(res => res.json())
 }
 
+export function updateUser(data, userId) {
+  const url = `http://localhost:3001/user/${userId}`
+
+  return fetch(url, {
+    body: JSON.stringify(data),
+    cache: 'no-chahe',
+    credentials: 'same-origin',
+    headers: {
+      'content-type': 'application/json'
+    },
+    method: 'PUT',
+    mode: 'cors',
+    redirect: 'follow',
+    referrer: 'no-referrer',
+  })
+  .then(res => res.json())
+}
+
 export function* handleCreateUser() {
   while(true) {
     const action = yield take(CREATE_USER)
@@ -57,6 +75,28 @@ export function* handleCreateUser() {
       yield put(successCreateUser(data))
     } else {
       yield put(failureCreateUser(data))
+    }
+  }
+}
+
+export function* handleUpdateUser() {
+  while(true) {
+    const action = yield take(UPDATE_USER)
+    const { userId, name, role } = action.data
+    const query = {
+      name: name,
+      role: role
+    }
+    const data = yield call(updateUser, query, userId)
+
+    if(data) {
+      const res = {changedRows: data.changedRows,
+                   id: userId,
+                   name: name,
+                   role: role}
+      yield put(successUpdateUser(res))
+    } else {
+      yield put(failureUpdateUser(data))
     }
   }
 }
@@ -87,7 +127,6 @@ export function fetchUser(id) {
 export function* handleDeleteUser() {
   while(true) {
     const action = yield take(DELETE_USER)
-    console.log(action.userId)
     const data = yield call(deleteUser, action.userId)
 
     if(data) {
@@ -116,6 +155,7 @@ export function deleteUser(id) {
 export default function* root() {
   yield fork(handleRequestUsers)
   yield fork(handleCreateUser)
+  yield fork(handleUpdateUser)
   yield fork(handleRequestUser)
   yield fork(handleDeleteUser)
 }

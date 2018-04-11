@@ -30,7 +30,6 @@ UserDetailContainer.propTypes = {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   const { user } = state
   const { isFetching, data } = user || {
     isFetching: false,

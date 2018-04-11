@@ -1,5 +1,6 @@
 import { REQUEST_ALL_USER, RECEIVE_DATA, FAILURE_DATA,
          CREATE_USER, SUCCESS_CREATE_USER, FAILURE_CREATE_USER,
+         UPDATE_USER, SUCCESS_UPDATE_USER, FAILURE_UPDATE_USER,
          REQUEST_USER,
          DELETE_USER, SUCCESS_DELETE_USER, FAILURE_DELETE_USER
        } from '../actions'
@@ -42,6 +43,22 @@ export default function userManager(
         insertId: action.data.insertId
       }
     case FAILURE_CREATE_USER:
+      return {
+        ...state,
+        isProcessing: false
+      }
+    case UPDATE_USER:
+      return {
+        ...state,
+        isProcessing: true
+      }
+    case SUCCESS_UPDATE_USER:
+      return {
+        ...state,
+        isProcessing: false,
+        data: new Array(action.data)
+      }
+    case FAILURE_UPDATE_USER:
       return {
         ...state,
         isProcessing: false
