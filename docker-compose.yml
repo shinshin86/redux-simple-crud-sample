@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./frontend
+    command: node server.js
+    volumes:
+     - ./frontend:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - front-tier
+
+  backend:
+    build: ./backend
+    command: node server.js
+    volumes:
+     - ./backend:/app
+    ports:
+      - "3001:3001"
+    networks:
+      - front-tier
+      - back-tier
+
+  dbserver:
+    restart: always
+    image: mysql:latest
+    hostname: dbserver
+    ports:
+      - "3306:3306"
+    volumes:
+      - 'db-data:/var/lib/mysql'
+    environment:
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    networks:
+      - back-tier
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
