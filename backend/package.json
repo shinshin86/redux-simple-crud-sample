@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "node server.js",
-    "test": "mocha"
+    "test": "mocha",
+    "cover": "nyc --reporter=lcov --reporter=text mocha"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -11,6 +12,7 @@
   },
   "devDependencies": {
     "mocha": "^5.1.0",
+    "nyc": "^11.6.0",
     "supertest": "^3.0.0"
   }
 }
