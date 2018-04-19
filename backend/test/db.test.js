@@ -1,8 +1,16 @@
-const conn = require('../db')
 const config = require('../config').database
 const assert = require('assert')
 
 describe('DB Connection', () => {
+  let conn
+  before((done) => {
+    conn = require('../db')
+    done()
+  })
+  after((done) => {
+    conn.end()
+    done()
+  })
   describe('Read connection setting at config file', () => {
     it('Host', () => {
       assert.equal(conn.config.host, config.host)
