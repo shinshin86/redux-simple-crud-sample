@@ -6,6 +6,7 @@ import { REQUEST_ALL_USER, receiveData, failureData, requestAllUser,
          DELETE_USER, successDeleteUser, failureDeleteUser,
        } from '../actions'
 import fetch from 'isomorphic-fetch'
+import { push } from 'react-router-redux'
 
 export function* handleRequestUsers() {
   while(true) {
@@ -73,6 +74,7 @@ export function* handleCreateUser() {
 
     if(data) {
       yield put(successCreateUser(data))
+      yield put(push('/users'))
     } else {
       yield put(failureCreateUser(data))
     }
