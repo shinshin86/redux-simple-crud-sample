@@ -10,8 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 // importing route
-var routes = require('./api/routes/userRoutes');
-routes(app);
+var userRoutes = require('./api/routes/userRoutes');
+var testRoutes = require('./api/routes/testRoutes');
+userRoutes(app);
+testRoutes(app);
 
 app.listen(port);
 
