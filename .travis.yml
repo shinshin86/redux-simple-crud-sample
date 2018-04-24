@@ -1,8 +1,10 @@
+sudo: false
 language: node_js
 node_js:
   - "8"
 
 before_install:
+  - cd backend
   - yarn add mocha supertest expect
 
 script:
