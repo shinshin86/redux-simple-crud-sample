@@ -18,9 +18,6 @@ describe('DB Connection', () => {
     it('User', () => {
       assert.equal(conn.config.user, config.user)
     })
-    it('Password', () => {
-      assert.equal(conn.config.password, config.password)
-    })
     it('Port', () => {
       assert.equal(conn.config.port, config.port)
     })
