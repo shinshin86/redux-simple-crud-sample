@@ -1,4 +1,6 @@
 # redux-simple-crud-sample - Backend
+[![Build Status](https://travis-ci.org/shinshin86/redux-simple-crud-sample.svg?branch=master)](https://travis-ci.org/shinshin86/redux-simple-crud-sample)
+
 Simple "CRUD" sample using Redux.<br>
 
 Backend server.
