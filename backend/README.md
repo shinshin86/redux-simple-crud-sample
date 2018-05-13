@@ -8,6 +8,13 @@ Backend server.
 ## Usage
 
 ```bash
+# setting for your database
+cp -p config/default.js_example config/default.js
+vim config/default.js
+
+# Install
+yarn
+
 # Start development server
 yarn run dev
 
