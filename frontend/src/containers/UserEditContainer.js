@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Button, Modal } from 'react-bootstrap'
-import UserEditModal from './UserEditModal'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Button, Modal } from 'react-bootstrap';
+import UserEditModal from './UserEditModal';
 
 class UserEditContainer extends React.Component {
   constructor(props, context) {
@@ -18,7 +18,7 @@ class UserEditContainer extends React.Component {
     this.setState({ show: false });
   }
   render() {
-    const { data } = this.props
+    const { data } = this.props;
     return (
       <span className="modal-container">
         <Modal
@@ -40,10 +40,7 @@ class UserEditContainer extends React.Component {
             <Button onClick={this.handleHide}>Close</Button>
           </Modal.Footer>
         </Modal>
-        <Button
-          bsStyle="primary"
-          onClick={() => this.setState({ show: true })}
-        >
+        <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
           Edit
         </Button>
       </span>
@@ -52,14 +49,14 @@ class UserEditContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { user } = state
+  const { user } = state;
   const { data } = user || {
     data: []
-  }
+  };
 
   return {
     data
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(UserEditContainer)
+export default connect(mapStateToProps)(UserEditContainer);

@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
-import { connect } from 'react-redux'
-import { requestUser, deleteUser } from '../actions'
-import UserDetail from '../components/UserDetail'
+import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { requestUser, deleteUser } from '../actions';
+import UserDetail from '../components/UserDetail';
 
 class UserDetailContainer extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentWillMount() {
@@ -15,31 +15,34 @@ class UserDetailContainer extends Component {
   }
 
   render() {
-    const { data, deleteUser } = this.props
+    const { data, deleteUser } = this.props;
     return (
       <div>
         <UserDetail data={data} handleDeleteUser={deleteUser} />
       </div>
-    )
+    );
   }
 }
 
 UserDetailContainer.propTypes = {
   data: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-}
+  isFetching: PropTypes.bool.isRequired
+};
 
 function mapStateToProps(state) {
-  const { user } = state
+  const { user } = state;
   const { isFetching, data } = user || {
     isFetching: false,
     data: []
-  }
+  };
 
   return {
     isFetching,
     data
-  }
+  };
 }
 
-export default connect(mapStateToProps, { requestUser, deleteUser })(UserDetailContainer)
+export default connect(
+  mapStateToProps,
+  { requestUser, deleteUser }
+)(UserDetailContainer);

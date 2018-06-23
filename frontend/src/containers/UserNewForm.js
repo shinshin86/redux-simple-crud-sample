@@ -1,118 +1,155 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
-import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
-import { Link } from 'react-router-dom'
-import { Button, FormGroup, FormControl, ControlLabel, Col  } from 'react-bootstrap'
-import { createUser } from '../actions'
+import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
+import {
+  Button,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  Col
+} from 'react-bootstrap';
+import { createUser } from '../actions';
 
 const submit = (values, dispatch) => {
-  dispatch(createUser(values))
-}
+  dispatch(createUser(values));
+};
 
-const renderTextField =
-  ({
-     input,
-     label,
-     type,
-     placeholder,
-     meta: {touched, error, warning}
-   }) => {
-    const validationState = error ? 'error' : warning ? 'warning' : 'success';
-    return (
-      <FormGroup controlId={input.name} validationState={touched ? validationState : null}>
-        <Col componentClass={ControlLabel} sm={2}>{label}</Col>
-        <Col sm={5}>
-          <input {...input} id={input.name} placeholder={placeholder} type={type} className={'form-control'}/>
-          {
-            touched && error &&
-            <HelpBlock>{error}</HelpBlock>
-          }
-        </Col>
-      </FormGroup>
-    )
-  };
+const renderTextField = ({
+  input,
+  label,
+  type,
+  placeholder,
+  meta: { touched, error, warning }
+}) => {
+  const validationState = error ? 'error' : warning ? 'warning' : 'success';
+  return (
+    <FormGroup
+      controlId={input.name}
+      validationState={touched ? validationState : null}
+    >
+      <Col componentClass={ControlLabel}>{label}</Col>
+      <Col>
+        <input
+          {...input}
+          id={input.name}
+          placeholder={placeholder}
+          type={type}
+          className={'form-control'}
+        />
+        {touched && error && <HelpBlock>{error}</HelpBlock>}
+      </Col>
+    </FormGroup>
+  );
+};
 
-const renderSelectField =
-  ({
-     input,
-     label,
-     type,
-     placeholder,
-     meta: {touched, error, warning}
-   }) => {
-    const validationState = error ? 'error' : warning ? 'warning' : 'success';
-    return (
-      <FormGroup controlId={input.name} validationState={touched ? validationState : null}>
-        <Col componentClass={ControlLabel} sm={2}>{label}</Col>
-        <Col sm={5}>
-          <FormControl {...input} id={input.name} type={type} componentClass="select">
-            <option />
-	    <option value="1">1 - Admin</option>
-	    <option value="2">2 - User</option>
-	  </FormControl>
-          {
-            touched && error &&
-            <HelpBlock>{error}</HelpBlock>
-          }
-        </Col>
-      </FormGroup>
-    )
-  };
+const renderSelectField = ({
+  input,
+  label,
+  type,
+  placeholder,
+  meta: { touched, error, warning }
+}) => {
+  const validationState = error ? 'error' : warning ? 'warning' : 'success';
+  return (
+    <FormGroup
+      controlId={input.name}
+      validationState={touched ? validationState : null}
+    >
+      <Col componentClass={ControlLabel}>{label}</Col>
+      <Col>
+        <FormControl
+          {...input}
+          id={input.name}
+          type={type}
+          componentClass="select"
+        >
+          <option />
+          <option value="1">1 - Admin</option>
+          <option value="2">2 - User</option>
+        </FormControl>
+        {touched && error && <HelpBlock>{error}</HelpBlock>}
+      </Col>
+    </FormGroup>
+  );
+};
 
 const UserNewForm = props => {
   const { handleSubmit, pristine, reset, submitting, insertId } = props;
   return (
-    <form onSubmit={handleSubmit(submit)}>
-      <FormGroup controlId='userNewForm'>
-        <div>
-          {insertId && <p>Insert Id : {insertId}</p>}
-	  <Field
-	    name="name"
-	    component={renderTextField}
-	    type="text"
-	    label="User name"
-	  />
-        </div>
-        <div>
-	  <Field
-	    name="role"
-	    component={renderSelectField}
-	    type="select"
-            label="Role"
-          />
-        </div>
-        <div>
-          <Button bsStyle='primary' type="submit" disabled={pristine || submitting}>Submit</Button>
-          <Button bsStyle='default' type="button" disabled={pristine || submitting} onClick={reset}>
-            Clear
-          </Button>
+    <div className="modal-dialog">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title" id="exampleModalLabel">
+            New User
+          </h5>
           <Link to={'/users'}>
-            <Button bsStyle='link'> 
-              Top
-            </Button>
+            <button
+              type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
           </Link>
         </div>
-      </FormGroup>
-    </form>
+        <div className="modal-body">
+          <form onSubmit={handleSubmit(submit)}>
+            {insertId && <p>Insert Id : {insertId}</p>}
+            <Field
+              name="name"
+              component={renderTextField}
+              type="text"
+              label="User name"
+            />
+            <Field
+              name="role"
+              component={renderSelectField}
+              type="select"
+              label="Role"
+            />
+          </form>
+        </div>
+        <div className="modal-footer" controlId="userNewForm">
+          <Button
+            bsStyle="primary"
+            type="submit"
+            disabled={pristine || submitting}
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+          <Button
+            bsStyle="default"
+            type="button"
+            disabled={pristine || submitting}
+            onClick={reset}
+          >
+            Clear
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 
 const mapStateToProps = state => {
-  const { user } = state
+  const { user } = state;
   const { isProcessing, insertId } = user || {
     isProcessing: false,
-    insertId: 0,
-  }
+    insertId: 0
+  };
 
   return {
-    isProcessing, 
+    isProcessing,
     insertId
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(
   reduxForm({
-    form: "UserNewForm"
+    form: 'UserNewForm'
   })(UserNewForm)
-)
+);

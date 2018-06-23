@@ -1,93 +1,119 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
-import { connect } from 'react-redux'
-import { Field, reduxForm, initialize } from 'redux-form'
-import { Link } from 'react-router-dom'
-import { Button, FormGroup, FormControl, ControlLabel, Col  } from 'react-bootstrap'
-import { updateUser } from '../actions'
+import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { Field, reduxForm, initialize } from 'redux-form';
+import { Link } from 'react-router-dom';
+import {
+  Button,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  Col
+} from 'react-bootstrap';
+import { updateUser } from '../actions';
 
 const styles = {
   button: {
     marginLeft: 15
   }
-}
+};
 const submit = (values, dispatch) => {
-  dispatch(updateUser(values))
-}
+  dispatch(updateUser(values));
+};
 
-const renderTextField =
-  ({
-     input,
-     label,
-     type,
-     placeholder,
-     meta: {touched, error, warning}
-   }) => {
-    const validationState = error ? 'error' : warning ? 'warning' : 'success';
-    return (
-      <FormGroup controlId={input.name} validationState={touched ? validationState : null}>
-        <Col componentClass={ControlLabel} sm={2}>{label}</Col>
-        <Col sm={5}>
-          <input {...input} id={input.name} placeholder={placeholder} type={type} className={'form-control'} />
-          {
-            touched && error &&
-            <HelpBlock>{error}</HelpBlock>
-          }
-        </Col>
-      </FormGroup>
-    )
-  };
+const renderTextField = ({
+  input,
+  label,
+  type,
+  placeholder,
+  meta: { touched, error, warning }
+}) => {
+  const validationState = error ? 'error' : warning ? 'warning' : 'success';
+  return (
+    <FormGroup
+      controlId={input.name}
+      validationState={touched ? validationState : null}
+    >
+      <Col componentClass={ControlLabel} sm={2}>
+        {label}
+      </Col>
+      <Col sm={5}>
+        <input
+          {...input}
+          id={input.name}
+          placeholder={placeholder}
+          type={type}
+          className={'form-control'}
+        />
+        {touched && error && <HelpBlock>{error}</HelpBlock>}
+      </Col>
+    </FormGroup>
+  );
+};
 
-const renderSelectField =
-  ({
-     input,
-     label,
-     type,
-     placeholder,
-     meta: {touched, error, warning}
-   }) => {
-    const validationState = error ? 'error' : warning ? 'warning' : 'success';
-    return (
-      <FormGroup controlId={input.name} validationState={touched ? validationState : null}>
-        <Col componentClass={ControlLabel} sm={2}>{label}</Col>
-        <Col sm={5}>
-          <FormControl {...input} id={input.name} type={type} componentClass="select">
-            <option />
-	    <option value="1">1 - Admin</option>
-	    <option value="2">2 - User</option>
-	  </FormControl>
-          {
-            touched && error &&
-            <HelpBlock>{error}</HelpBlock>
-          }
-        </Col>
-      </FormGroup>
-    )
-  };
+const renderSelectField = ({
+  input,
+  label,
+  type,
+  placeholder,
+  meta: { touched, error, warning }
+}) => {
+  const validationState = error ? 'error' : warning ? 'warning' : 'success';
+  return (
+    <FormGroup
+      controlId={input.name}
+      validationState={touched ? validationState : null}
+    >
+      <Col componentClass={ControlLabel} sm={2}>
+        {label}
+      </Col>
+      <Col sm={5}>
+        <FormControl
+          {...input}
+          id={input.name}
+          type={type}
+          componentClass="select"
+        >
+          <option />
+          <option value="1">1 - Admin</option>
+          <option value="2">2 - User</option>
+        </FormControl>
+        {touched && error && <HelpBlock>{error}</HelpBlock>}
+      </Col>
+    </FormGroup>
+  );
+};
 
-const renderDisabledTextField =
-  ({
-     input,
-     label,
-     type,
-     placeholder,
-     meta: {touched, error, warning}
-   }) => {
-    const validationState = error ? 'error' : warning ? 'warning' : 'success';
-    return (
-      <FormGroup controlId={input.name} validationState={touched ? validationState : null}>
-        <Col componentClass={ControlLabel} sm={2}>{label}</Col>
-        <Col sm={5}>
-          <input {...input} id={input.name} placeholder={placeholder} type={type} className={'form-control'} disabled />
-          {
-            touched && error &&
-            <HelpBlock>{error}</HelpBlock>
-          }
-        </Col>
-      </FormGroup>
-    )
-  };
-
+const renderDisabledTextField = ({
+  input,
+  label,
+  type,
+  placeholder,
+  meta: { touched, error, warning }
+}) => {
+  const validationState = error ? 'error' : warning ? 'warning' : 'success';
+  return (
+    <FormGroup
+      controlId={input.name}
+      validationState={touched ? validationState : null}
+    >
+      <Col componentClass={ControlLabel} sm={2}>
+        {label}
+      </Col>
+      <Col sm={5}>
+        <input
+          {...input}
+          id={input.name}
+          placeholder={placeholder}
+          type={type}
+          className={'form-control'}
+          disabled
+        />
+        {touched && error && <HelpBlock>{error}</HelpBlock>}
+      </Col>
+    </FormGroup>
+  );
+};
 
 // const UserEditModal = props => {
 class UserEditModal extends Component {
@@ -101,15 +127,23 @@ class UserEditModal extends Component {
       userId: data[0].id,
       name: data[0].name,
       role: data[0].role
-    }
-    initialize(initData)
+    };
+    initialize(initData);
   }
-  
+
   render() {
-    const { handleSubmit, pristine, submitting, reset, initialize, data, handleHide } = this.props;
+    const {
+      handleSubmit,
+      pristine,
+      submitting,
+      reset,
+      initialize,
+      data,
+      handleHide
+    } = this.props;
     return (
       <form onSubmit={handleSubmit(submit)}>
-        <FormGroup controlId='userEditForm'>
+        <FormGroup controlId="userEditForm">
           <div>
             <Field
               name="userId"
@@ -135,30 +169,45 @@ class UserEditModal extends Component {
             />
           </div>
           <div>
-            <Button bsStyle='primary' type="submit" disabled={pristine || submitting} onClick={handleHide} style={styles.button}>Submit</Button>
-            <Button bsStyle='danger' disabled={pristine || submitting} onClick={reset} style={styles.button}>Clear</Button>
+            <Button
+              bsStyle="primary"
+              type="submit"
+              disabled={pristine || submitting}
+              onClick={handleHide}
+              style={styles.button}
+            >
+              Submit
+            </Button>
+            <Button
+              bsStyle="danger"
+              disabled={pristine || submitting}
+              onClick={reset}
+              style={styles.button}
+            >
+              Clear
+            </Button>
           </div>
         </FormGroup>
       </form>
     );
   }
-};
+}
 
 const mapStateToProps = state => {
-  const { user } = state
+  const { user } = state;
   const { isProcessing, data } = user || {
     isProcessing: false,
     data: []
-  }
+  };
 
   return {
-    isProcessing, 
+    isProcessing,
     data
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(
   reduxForm({
-    form: "UserEditForm",
+    form: 'UserEditForm'
   })(UserEditModal)
-)
+);

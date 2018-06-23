@@ -16,7 +16,7 @@ const {store, history} = configureStore()
 render(
   <Provider store={store}>
     <ConnectedRouter history={history} >
-      <div>
+      <div className='container'>
         <Switch>
           <Route exact path="/" component={UserIndex} />
           <Route path="/users" component={UserIndex} />
