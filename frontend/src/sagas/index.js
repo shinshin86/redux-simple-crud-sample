@@ -46,7 +46,6 @@ export function createNewUser(data) {
 
   return fetch(url, {
     body: JSON.stringify(data),
-    cache: 'no-chahe',
     credentials: 'same-origin',
     headers: {
       'content-type': 'application/json'

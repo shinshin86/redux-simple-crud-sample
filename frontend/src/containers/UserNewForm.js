@@ -95,8 +95,8 @@ const UserNewForm = props => {
             </button>
           </Link>
         </div>
-        <div className="modal-body">
-          <form onSubmit={handleSubmit(submit)}>
+        <form onSubmit={handleSubmit(submit)}>
+          <div className="modal-body">
             {insertId && <p>Insert Id : {insertId}</p>}
             <Field
               name="name"
@@ -110,26 +110,25 @@ const UserNewForm = props => {
               type="select"
               label="Role"
             />
-          </form>
-        </div>
-        <div className="modal-footer" controlId="userNewForm">
-          <Button
-            bsStyle="primary"
-            type="submit"
-            disabled={pristine || submitting}
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-          <Button
-            bsStyle="default"
-            type="button"
-            disabled={pristine || submitting}
-            onClick={reset}
-          >
-            Clear
-          </Button>
-        </div>
+          </div>
+          <div className="modal-footer" controlId="userNewForm">
+            <Button
+              bsStyle="primary"
+              type="submit"
+              disabled={pristine || submitting}
+            >
+              Submit
+            </Button>
+            <Button
+              bsStyle="default"
+              type="button"
+              disabled={pristine || submitting}
+              onClick={reset}
+            >
+              Clear
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );
