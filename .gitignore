@@ -67,3 +67,6 @@ coverage
 
 # nyc
 .nyc_output
+
+# config files
+backend/config/default.js
