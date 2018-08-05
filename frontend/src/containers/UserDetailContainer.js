@@ -10,8 +10,8 @@ class UserDetailContainer extends Component {
   }
 
   componentWillMount() {
-    const { userId } = this.props;
-    this.props.requestUser(userId);
+    const { id } = this.props.match.params;
+    this.props.requestUser(id);
   }
 
   render() {

@@ -6,7 +6,7 @@ import { Button, Table } from 'react-bootstrap';
 
 const UserList = ({ data, deleteUser }) => (
   <div>
-    <Link to={'/user/new'}>
+    <Link to="/user/new">
       <Button bsStyle="primary">New</Button>
     </Link>
     <Table striped bordered condensed hover>

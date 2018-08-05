@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
+import UserNewModal from '../components/UserNewModal';
+import { createUser } from '../actions';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 import {
   Button,
   FormGroup,
@@ -10,11 +11,55 @@ import {
   ControlLabel,
   Col
 } from 'react-bootstrap';
-import { createUser } from '../actions';
 
 const submit = (values, dispatch) => {
   dispatch(createUser(values));
 };
+
+class UserNewForm extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const { handleSubmit, pristine, reset, submitting, insertId } = this.props;
+    return (
+      <form onSubmit={handleSubmit(submit)}>
+        <div className="modal-body">
+          {insertId && <p>Insert Id : {insertId}</p>}
+          <Field
+            name="name"
+            component={renderTextField}
+            type="text"
+            label="User name"
+          />
+          <Field
+            name="role"
+            component={renderSelectField}
+            type="select"
+            label="Role"
+          />
+        </div>
+        <div className="modal-footer" controlId="userNewForm">
+          <Button
+            bsStyle="primary"
+            type="submit"
+            disabled={pristine || submitting}
+          >
+            Submit
+          </Button>
+          <Button
+            bsStyle="default"
+            type="button"
+            disabled={pristine || submitting}
+            onClick={reset}
+          >
+            Clear
+          </Button>
+        </div>
+      </form>
+    );
+  }
+}
 
 const renderTextField = ({
   input,
@@ -72,65 +117,6 @@ const renderSelectField = ({
         {touched && error && <HelpBlock>{error}</HelpBlock>}
       </Col>
     </FormGroup>
-  );
-};
-
-const UserNewForm = props => {
-  const { handleSubmit, pristine, reset, submitting, insertId } = props;
-  return (
-    <div className="modal-dialog">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title" id="exampleModalLabel">
-            New User
-          </h5>
-          <Link to={'/users'}>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </Link>
-        </div>
-        <form onSubmit={handleSubmit(submit)}>
-          <div className="modal-body">
-            {insertId && <p>Insert Id : {insertId}</p>}
-            <Field
-              name="name"
-              component={renderTextField}
-              type="text"
-              label="User name"
-            />
-            <Field
-              name="role"
-              component={renderSelectField}
-              type="select"
-              label="Role"
-            />
-          </div>
-          <div className="modal-footer" controlId="userNewForm">
-            <Button
-              bsStyle="primary"
-              type="submit"
-              disabled={pristine || submitting}
-            >
-              Submit
-            </Button>
-            <Button
-              bsStyle="default"
-              type="button"
-              disabled={pristine || submitting}
-              onClick={reset}
-            >
-              Clear
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
   );
 };
 
