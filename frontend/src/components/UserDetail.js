@@ -29,7 +29,7 @@ const UserDetail = ({ data, handleDeleteUser }) => (
       </Panel.Body>
     </Panel>
     <UserEditContainer data={data[0]} />
-    <Link to={'/users'}>
+    <Link to="/users">
       <Button
         bsStyle="danger"
         onClick={e => handleDeleteUser(data[0].id, e)}
@@ -38,9 +38,11 @@ const UserDetail = ({ data, handleDeleteUser }) => (
         Delete
       </Button>
     </Link>
-    <Button bsStyle="default" style={styles.button}>
-      <Link to={'/users'}>Top</Link>
-    </Button>
+    <Link to="/users">
+      <Button bsStyle="default" style={styles.button}>
+        Top
+      </Button>
+    </Link>
   </div>
 );
 
