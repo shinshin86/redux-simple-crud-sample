@@ -37,7 +37,7 @@ const renderTextField = ({
       <Col componentClass={ControlLabel} sm={2}>
         {label}
       </Col>
-      <Col sm={5}>
+      <Col sm={10}>
         <input
           {...input}
           id={input.name}
@@ -67,7 +67,7 @@ const renderSelectField = ({
       <Col componentClass={ControlLabel} sm={2}>
         {label}
       </Col>
-      <Col sm={5}>
+      <Col sm={10}>
         <FormControl
           {...input}
           id={input.name}
@@ -100,7 +100,7 @@ const renderDisabledTextField = ({
       <Col componentClass={ControlLabel} sm={2}>
         {label}
       </Col>
-      <Col sm={5}>
+      <Col sm={10}>
         <input
           {...input}
           id={input.name}
