@@ -4,7 +4,10 @@ module.exports = {
   ],
   "presets": [
     "@babel/react",
-    "@babel/stage-0",
+    [ "@babel/stage-0", {
+      useBuiltIns: true,
+      decoratorsLegacy: true
+    }],
     [
       "@babel/env",
       {
