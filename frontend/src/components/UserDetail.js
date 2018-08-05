@@ -13,37 +13,40 @@ const styles = {
   }
 };
 
-const UserDetail = ({ data, handleDeleteUser }) => (
-  <div>
-    <Panel bsStyle="primary">
-      <Panel.Heading>
-        <Panel.Title componentClass="h3">{data[0].name}</Panel.Title>
-      </Panel.Heading>
-      <Panel.Body>
-        ID : {data[0].id}
-        <br />
-        Role : {data[0].role}
-        {data[0].changedRows && (
-          <div style={styles.notifyFont}>UPDATE DATA</div>
-        )}
-      </Panel.Body>
-    </Panel>
-    <UserEditContainer data={data[0]} />
-    <Link to="/users">
-      <Button
-        bsStyle="danger"
-        onClick={e => handleDeleteUser(data[0].id, e)}
-        style={styles.button}
-      >
-        Delete
-      </Button>
-    </Link>
-    <Link to="/users">
-      <Button bsStyle="default" style={styles.button}>
-        Top
-      </Button>
-    </Link>
-  </div>
-);
+const UserDetail = ({ data, handleDeleteUser }) => {
+  if (!data.length) return null;
+  return (
+    <div>
+      <Panel bsStyle="primary">
+        <Panel.Heading>
+          <Panel.Title componentClass="h3">{data[0].name}</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body>
+          ID : {data[0].id}
+          <br />
+          Role : {data[0].role}
+          {data[0].changedRows && (
+            <div style={styles.notifyFont}>UPDATE DATA</div>
+          )}
+        </Panel.Body>
+      </Panel>
+      <UserEditContainer data={data[0]} />
+      <Link to="/users">
+        <Button
+          bsStyle="danger"
+          onClick={e => handleDeleteUser(data[0].id, e)}
+          style={styles.button}
+        >
+          Delete
+        </Button>
+      </Link>
+      <Link to="/users">
+        <Button bsStyle="default" style={styles.button}>
+          Top
+        </Button>
+      </Link>
+    </div>
+  );
+};
 
 export default UserDetail;
