@@ -62,7 +62,6 @@ export function updateUser(data, userId) {
 
   return fetch(url, {
     body: JSON.stringify(data),
-    cache: 'no-chahe',
     credentials: 'same-origin',
     headers: {
       'content-type': 'application/json'
